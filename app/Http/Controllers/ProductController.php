@@ -37,10 +37,10 @@ class ProductController extends Controller
         return view('admin.products.edit')->with(compact('product')); //formulario de registro
     }
 
-    public function update(Request $request){
+    public function update(Request $request,$id){
         //registrar el nuevo producto en la base de datos
         //dd($request->all());
-        $product = new Product();
+        $product = Product::find($id);
         $product->name=$request->input('name');
         $product->description=$request->input('description');
         $product->price=$request->input('price');
