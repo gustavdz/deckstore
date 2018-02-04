@@ -36,15 +36,21 @@
                                 <td>{{$product->category ? $product->category->name:'General'}}</td>
                                 <td class="text-right">$ {{$product->price}}</td>
                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Ver producto" class="btn btn-info btn-simple btn-xs">
-                                        <i class="fa fa-info"></i>
-                                    </button>
-                                    <a href="{{url('/admin/products/'.$product->id.'/edit')}}" type="button" rel="tooltip" title="Editar producto" class="btn btn-success btn-simple btn-xs">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <button type="button" rel="tooltip" title="Eliminar producto" class="btn btn-danger btn-simple btn-xs">
-                                        <i class="fa fa-times"></i>
-                                    </button>
+                                    <form method="POST" action="{{url('/admin/products/'.$product->id)}}">
+                                        {{csrf_field()}}
+                                        <!--<input type="hidden" name="_token" value="{{csrf_token()}}">-->
+                                        {{method_field('DELETE')}}
+                                        <a href="#" rel="tooltip" title="Ver producto" class="btn btn-info btn-simple btn-xs">
+                                            <i class="fa fa-info"></i>
+                                        </a>
+                                        <a href="{{url('/admin/products/'.$product->id.'/edit')}}" type="button" rel="tooltip" title="Editar producto" class="btn btn-success btn-simple btn-xs">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <!--<input type="hidden" name="_method" value="DELETE">-->
+                                        <button type="submit" rel="tooltip" title="Eliminar producto" class="btn btn-danger btn-simple btn-xs">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

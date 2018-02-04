@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ProductImage;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -38,7 +39,7 @@ class ProductController extends Controller
     }
 
     public function update(Request $request,$id){
-        //registrar el nuevo producto en la base de datos
+        //actualizar la informacion del producto en la base de datos
         //dd($request->all());
         $product = Product::find($id);
         $product->name=$request->input('name');
@@ -48,5 +49,14 @@ class ProductController extends Controller
         $product->save(); // insert del objeto
 
         return redirect('/admin/products');
+    }
+
+    public function destroy($id){
+        ProductImage::where('product_id', $id)->delete();
+
+        $product = Product::find($id);
+        $product->delete(); // delete del objeto
+
+        return back();
     }
 }
