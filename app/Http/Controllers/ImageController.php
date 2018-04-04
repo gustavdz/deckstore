@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ProductImage;
+use File;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -13,11 +15,38 @@ class ImageController extends Controller
         return view('admin.products.images.index')->with(compact('product','images'));
     }
 
-    public function  store(){
+    public function  store(Request $request,$id){
+        //guardar la imagen en nuestro proyecto
+        $file = $request->file('photo');
+        $path = public_path() . '/images/products';
+        $fileName = uniqid().$file->getClientOriginalName();
+        $moved=$file->move($path,$fileName);
 
+        //crear 1 registro en la tabla product_images
+        if($moved){
+            $productImage = new ProductImage();
+            $productImage->image = $fileName;
+            $productImage->product_id = $id;
+            $productImage->save();
+        }
+
+        return back();
     }
 
-    public function destroy(){
+    public function destroy(Request $request, $id){
+        //eliminar el archivo
+        $productImage=ProductImage::find($request->input('image_id'));
+        if(substr($productImage->image,0,4) === 'http') {
+            $deleted=true;
+        }else{
+            $fullPath = public_path()."/images/products/". $productImage->image;
+            $deleted = File::delete($fullPath);
+        }
 
+        //eliminar el registro de la img en la base de datos
+        if ($deleted){
+            $productImage->delete();
+        }
+        return back();
     }
 }
