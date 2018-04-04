@@ -17,14 +17,14 @@ class Product extends Model
 
     public function getFeaturedImageUrlAttribute(){
         $featuredImage = $this->images()->where('featured',true)->first();
-        if(!$featuredImage){
+        if(!$featuredImage) {
             $featuredImage = $this->images()->first();
-            if($featuredImage){
-                return $featuredImage->url;
-            }else{
-                //default
-                return '/images/products/default.jpg';
-            }
         }
+        if($featuredImage){
+            return $featuredImage->url;
+        }
+        //default
+        return '/images/products/default.jpg';
     }
+
 }
