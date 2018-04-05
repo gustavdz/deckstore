@@ -79,7 +79,20 @@
                     @endforeach
                     </tbody>
                 </table>
-
+                @if (auth()->user()->cart->details->count() > 0)
+                    <div class="text-center">
+                        <form method="post" action="{{ url('/order') }}">
+                            {{csrf_field()}}
+                            <button class="btn btn-primary btn-round">
+                                <i class="material-icons">done</i>Realizar pedido
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <div class="text-center">
+                        Su carrito se encuentra vacío, agregue productos para poder continuar con la compra.
+                    </div>
+                @endif
             </div>
 
         </div>
