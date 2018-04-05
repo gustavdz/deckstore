@@ -12,10 +12,26 @@
                     <div class="avatar">
                         <img src="{{$product->featured_image_url}}" alt="Circle Image" class="img-circle img-responsive img-raised">
                     </div>
+
                     <div class="name">
                         <h3 class="title">{{$product->name}}</h3>
                         <h6>{{$product->category->name}}</h6>
                     </div>
+
+                    @if (session('notification'))
+                        <div class="alert alert-success">
+                            <div class="container-fluid">
+                                <div class="alert-icon">
+                                    <i class="material-icons">check</i>
+                                </div>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                </button>
+                                <b></b> {{ session('notification') }}
+                            </div>
+                        </div>
+                    @endif
+                    
                 </div>
             </div>
             <div class="description text-center">

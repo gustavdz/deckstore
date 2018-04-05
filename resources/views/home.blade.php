@@ -12,9 +12,17 @@
             <div class="section">
                 <h2 class="title text-center">Dashboard</h2>
 
-                @if (session('status'))
+                @if (session('notification'))
                     <div class="alert alert-success">
-                        {{ session('status') }}
+                        <div class="container-fluid">
+                            <div class="alert-icon">
+                                <i class="material-icons">check</i>
+                            </div>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                            </button>
+                            <b></b> {{ session('notification') }}
+                        </div>
                     </div>
                 @endif
 
